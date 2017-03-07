@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="oop.js"></script>
+    <script>
+        var cat1=new Cat("大毛","黑色");
+        var cat2=new Cat("二毛","红色");
+
+        /* 判断某个prototype对象与实例的关系 */
+        console.log(Cat.prototype.isPrototypeOf(cat1));
+
+        /* 每个实例对象都有一个hasOwnProperty，判断属性是本地属性，还是集成自prototype对象的属性 */
+        console.log(cat1.hasOwnProperty("name"));
+        console.log(cat1.hasOwnProperty("type"));
+
+        /* in运算符可以判断实例是否有某个属性，包括本地属性和prototype属性,也可以用来遍历 */
+        console.log("name" in cat1);
+        console.log("type" in cat1);
+
+
+        /* 猫继承动物 */
+        /* 1.call或者apply方法，将父对象的构造函数绑定在子对象上 */
+
+        var cat3=new NewCat("三毛","白色");
+        console.log(cat3.species);
+        /* 2.使用prototype属性 */
+        Cat.prototype=new Animal();
+        Cat.prototype.constructor=Cat;
+
+        var cat4=new Cat("四毛","绿色");
+        console.log(cat4.type);
+        //console.log(cat4.constructor==Animal);
+
+        /* 3.直接继承Animal的prototype */
+        /* 4.利用空对象作中介 */
+        var F =function(){};
+        F.prototype=Animal.prototype;
+        Cat.prototype=new F();
+        Cat.prototype.constructor=Cat;
+        var cat5=new Cat("五毛","蓝色");
+        console.log(Animal.prototype.constructor);
+        console.log(Cat.prototype.constructor);
+
+
+
+        extend(Dog,NewAnimal);
+        var dog1=new Dog("六毛","咖啡色");
+        console.log(dog1.species);
+
+
+        /* 非构造函数的拷贝 */
+        var Chinese={
+            nation:'中国'
+        };
+//        var Doctor={
+//            career:'医生'
+//        };
+        /* 将子对象的prototype属性指向父对象 */
+        function object(parent){
+            function F(){}
+            F.prototype=parent;
+            return new F();
+        }
+        var Doctor=object(Chinese);
+        Doctor.career='医生';
+        console.log(Doctor.nation);
+
+        /* js的new 跟构造函数（js没有类的概念）*/
+        /* 构造函数有一个prototype属性 */
+        /* 所有实例共享属性和方法都在同一个prototype对象 */
+        function Duck(name){
+            this.name=name;
+        }
+        Duck.prototype={species:'家禽'};
+        var duck1=new Duck("大毛");
+        var duck2=new Duck("二毛");
+        console.log(duck1.species);
+        Duck.prototype.species='禽兽';
+        console.log(duck2.species);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

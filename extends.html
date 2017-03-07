@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /* 1.call或者apply将父对象构造函数绑定到子构造 */
+        function Animal(){
+            this.species="动物";
+        }
+        function Cat(name){
+            Animal.apply(this,arguments);
+            this.name=name;
+            this.talk=function(){
+                console.log("喵喵");
+            }
+        }
+        var cat=new Cat("大龙");
+        console.log(cat.species);
+
+        /* 使用prototype属性 子构造函数的prototype指向父对象实例 就能集成父构造函数*/
+        function Dog(name){
+            Animal.apply(this,arguments);
+            this.name=name;
+            this.talk=function(){
+                console.log("汪汪");
+            }
+        }
+        Dog.prototype=new Animal();
+        Dog.prototype.constructor=Dog;
+        var dog=new Dog("小龙");
+
+        /* 使用prototype属性 指向父构造函数的prototype */
+        function NewAnimal(){
+        }
+        NewAnimal.prototype.species="动物";
+        function NewCat(name){
+            this.name=name;
+        }
+        NewCat.prototype=NewAnimal.prototype;
+        NewCat.prototype.constructor=Cat;
+        var cat2=new Cat("大毛");
+        console.log(cat2.species);
+
+        /* 利用空对象作为中介 */
+        function Fox(name){
+            this.name=name;
+        }
+        function Animal2(){
+        }
+        Animal2.prototype.species="动物";
+        var F=function(){};
+        F.prototype=Animal2.prototype;
+        Fox.prototype=new F(); //F实例会继承 F.prototype属性，赋值给Fox.prototype
+        Fox.prototype.constructor=Fox; //constructor重新指向他的构造函数
+        var fox=new Fox("小虎");
+        console.log(fox.species);
+
+        /*拷贝继承 把父构造的所有属性的方法都拷贝进子构造*/
+        console.log("拷贝继承：")
+        function Animal3(){
+
+        }
+        Animal3.prototype.species="动物";
+        function extend(Child,Parent){
+            var p=Parent.prototype;
+            var c=Child.prototype;
+            for(var i in p){
+                c[i]=p[i];
+                console.log(c[i]);
+            }
+            c.uber=p;
+        }
+        function Tiger(name){
+            this.name=name;
+        }
+        extend(Tiger,Animal3);
+        var tiger=new Tiger("小苗");
+        console.log(tiger.species);
+
+        /* 非构造函数的继承*/
+        var Chinese={
+            nation:"中国"
+        };
+        function object(o){
+            function F(){}
+            F.prototype=o;
+            return new F();
+        }
+        var doctor=object(Chinese);
+        doctor.career="医生";
+        console.log(doctor.nation);
+
+        /* 2 浅拷贝*/
+        function extendCopy(p){
+            var c={};
+            for(var i in p){
+                c[i]=p[i];
+            }
+            c.uber=p;
+            return c;
+        }
+        var nurse=extendCopy(Chinese);
+        nurse.career="护士";
+        console.log(nurse.nation);  //如有父构造函数的属性是引用对象或者数组，则可能存在外部篡改的可能
+
+        /* 3深拷贝*/
+        function extendDeepCopy(p,c){
+            var c=c||{};
+            for(var i in p){
+                if(typeof p[i]==='object'){
+                    c[i]=(p[i].constructor===Array)?[]:{};
+                    extendDeepCopy(p[i],c[i]);
+                }else{
+                    c[i]=p[i];
+                }
+            }
+            return c;
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

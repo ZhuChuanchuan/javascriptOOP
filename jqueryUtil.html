@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.9.1.js"></script>
+    <script>
+        //trim去掉前后空格
+        var tm=$.trim("  hello  world  ");
+        console.log(tm);
+        //contains方法返回一个布尔值，表示dom元素是否为另一个dom的下级元素
+        var ct= $.contains(document.documentElement,document.body);
+        console.log(ct);
+        //each方法用户遍历数组和对象，然后返回原始对象，参数 1数据集合 2回调函数
+        //map方法类似，但会返回一个新的对象
+        $.each([44,22,41],function(index,value){
+           console.log(index+" "+value);
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

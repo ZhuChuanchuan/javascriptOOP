@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+//        for(var i=1;i<=3;i++){
+//            setTimeout(function(){
+//                console.log(i);
+//            },0);
+//        }
+
+        for(var i=1;i<=3;i++){
+            setTimeout(function(a){
+                console.log(a);
+            }(i),0);
+        }
+
+        function GetRandomNum(min,max){
+            var range=max-min;
+            var random=Math.random(); /* 0到1 */
+            return (min+math.round(range*random));
+        }
+
+        /*闭包实现点击每列alert其index*/
+//        var lis=document.getElementById("test").getElementsByTagName("li");
+//        for(var i=0;i<lis.length;i++){
+//
+//        }
+
+        function log(){
+            console.log.apply(console,arguments);
+        }
+        log("dfadf","eeee");
+    </script>
+    <style>
+        #box{
+            width:100px;
+            height:100px;
+            background-color: red;
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        var box=document.getElementById('box');
+
+        box.onmousedown=function(ev){
+            var ev=ev||window.event;
+            var a=ev.clientX-box.offsetLeft;
+            var b=ev.clientY-box.offsetHeight;
+
+            document.onmousemove=function(ev){
+                var ev=ev||window.event;
+                var c=ev.clientX-a;
+                var d=ev.clientY-b;
+                if(c<=0){
+                    c=0;
+                }
+                if(d<=0){
+                    d=0;
+                }
+                box.style.left=c+'px';
+                box.style.top=d+'px';
+            }
+        }
+        box.onmouseup=function(){
+            document.onmousemove=null;
+        }
+
+    </script>
+</body>
+</html>

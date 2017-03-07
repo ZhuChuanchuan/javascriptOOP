@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*外部读取局部变量*/
+
+        //函数内部再定义一个函数 “链式作用域”>>f2可以读取f1变量，f1不能读取f2的变量
+        function f1(){
+            var n=999;
+            function f2(){
+                console.log(n);
+            }
+        }
+        // f2可以读取f1，则只要把f2作为返回值，就可以在f1外部读取它的内部变量
+        function  f3(){
+            var n=999;
+            function f4(){
+                var m=888;
+                console.log(m);
+                console.log(n);
+            }
+            return f4;
+        }
+        var result=f3();
+        result();
+
+        /*除了从外部读取局部变量，还有个作用：让变量的值始终保存在内存中 */
+        var nAdd;
+        function f5(){
+            var n=999;
+            nAdd=function(){
+                n+=1;
+            }
+            function f6(){
+                console.log(n);
+            }
+            return f6;
+        }
+        var res=f5();
+        res(); //999
+        nAdd();//局部变量n的值并没有在内存中释放
+        res();//1000
+
+        var name="the window";
+        var object={
+            name:"my object",
+            getNameFunc:function(){
+                //因为此函数并没有name属性，this找不到则找全局name
+                return function(){
+                    return this.name;
+                };
+            }
+        };
+        alert(object.getNameFunc()());
+
+        var newObj={
+            name:"my object",
+            getNameFunc:function(){
+                //将this的作用域赋给that
+                var that=this;
+                return function(){
+                  return that.name;
+                };
+            }
+        };
+        alert(newObj.getNameFunc()());
+    </script>
+</head>
+<body>
+
+</body>
+</html>
