@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function (){
+            /* 创建大背景 modal_overlay*/
+            /* 创建模态窗口 modal_data*/
+            /* 创建窗口内容 modal_header modal_content modal_footer */
+            var modal_overlay=document.createElement('div');
+            modal_overlay.style.display="block";
+            modal_overlay.style.position="fixed";
+            modal_overlay.style.left="0px";
+            modal_overlay.style.top="0px";
+            modal_overlay.style.width="100%";
+            modal_overlay.style.height="100%";
+            modal_overlay.style.backgroundColor="#333";
+            modal_overlay.style.opacity="0.5";
+
+            var modal_data=document.createElement('div');
+            modal_data.style.position="absolute";
+            modal_data.style.width="400px";
+            modal_data.style.height="200px";
+            modal_data.style.top="50%";
+            modal_data.style.marginTop="-100px";
+            modal_data.style.left="50%";
+            modal_data.style.marginLeft="-200px";
+            modal_data.style.backgroundColor="#fff";
+
+            var modal_header=document.createElement('div');
+            var modal_content=document.createElement('div');
+            var modal_footer=document.createElement('div');
+            var header_title=document.createElement('h3');
+            var header_x=document.createElement('button');
+            header_x.style.position="absolute";
+            header_x.style.top="0px";
+            header_x.style.right="0px";
+
+            var content_p=document.createElement('p');
+            var footer_btnSure=document.createElement('button');
+            var footer_btnCancel=document.createElement('button');
+
+            /*赋值*/
+            var title=document.createTextNode("我是标题");
+            var x=document.createTextNode('x');
+            var p=document.createTextNode("我是内容");
+            var btnSure=document.createTextNode("确定");
+            var btnCancel=document.createTextNode("取消");
+
+            /* 组织结构*/
+            header_title.appendChild(title);
+            header_x.appendChild(x);
+            content_p.appendChild(p);
+            footer_btnSure.appendChild(btnSure);
+            footer_btnCancel.appendChild(btnCancel);
+
+            modal_header.appendChild(header_title);
+            modal_header.appendChild(header_x);
+            modal_content.appendChild(content_p);
+            modal_footer.appendChild(footer_btnSure);
+            modal_footer.appendChild(footer_btnCancel);
+
+            modal_data.appendChild(modal_header);
+            modal_data.appendChild(modal_content);
+            modal_data.appendChild(modal_footer);
+
+            modal_overlay.appendChild(modal_data);
+            document.body.appendChild(modal_overlay);
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
