@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function duplicates(arr) {
+
+//            var temp=[];
+//            var result=[];
+//            for(var i=0,len=arr.length;i<len;i++) {
+//                if(temp.indexOf(arr[i])==-1){
+//                    temp.push(arr[i]);
+//                }else{
+//                    result.push(arr[i]);
+//                }
+//
+//            }
+//            return result.sort();
+
+            var res=[];
+            arr.sort();
+            for(var i= 1,len=arr.length;i<len;i++){
+                if(arr[i]==arr[i-1]&&res.indexOf(arr[i])==-1){
+                    res.push(arr[i]);
+                }
+            }
+            return res;
+        }
+
+        var arr=[1,2,4,4,3,3,1,5];
+        console.log(duplicates(arr).join());
+
+        /* 函数声明提前, 函数表达式则正常执行*/
+        test(1);
+        test2(1); //不会执行  表达式在下方
+        function test(num){
+            alert(num);
+        }
+        var test2=function(num){
+            alert(num)
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
