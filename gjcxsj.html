@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /* Array.Sort 易出错点*/
+        var value=[0,1,5,10,15];
+        value.sort();
+        console.log("排序后"+value);
+        var compare=function(val1,val2){
+            if(val1<val2){
+                return -1;
+            }else if(val1>val2) {
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        /* compare改进*/
+        var compare2=function(val1,val2) {
+            return val1-val2;
+        };
+        console.log("改进后排序"+value.sort(compare));
+        console.log("改进后排序"+value.sort(compare2));
+
+        /*Function 类型*/
+        function sum(num1,num2){
+            return num1+num2;
+        }
+        console.log(sum(1, 2));
+        var another=sum; //使用不带圆括号的函数名是访问函数指针,并非调用函数
+        sum=null;
+        console.log(another(1,2));
+
+        function outputNumbers(count){
+            for(var i=0;i<count;i++) {
+                console.log(i);
+            }
+            var i; //并没有效果
+            console.log("计数" + i);
+        }
+        outputNumbers(5);
+
+        /* for 块级作用域  闭包*/
+        function createFunction(){
+            var res=new Array();
+            for(var i=0;i<5;i++) {
+                res[i]=function(){
+                    return i;
+                };
+            }
+
+            return res;
+        }
+        console.log(createFunction().join());
+        function createFunction2(){
+            var res=[];
+            for(var i=0;i<5;i++){
+                res[i]=function(num){
+                    return function(){
+                        return num;
+                    };
+                }(i);
+            }
+            return res;
+        }
+        console.log(createFunction2().join());
+
+        function functionFunction(str) {
+
+            var f=function(s){
+                return str+", "+s;
+            }
+            return f;
+        }
+        var t=functionFunction('hello')('world');
+        console.log(t);
+
+        /* 闭包*/
+        function makeClosures(arr, fn) {
+
+            var result=[];
+            for(var i=0,len=arr.length;i<len;i++){
+                result[i]=function(num){
+                    return function(){
+                        return fn(num);
+                    };
+                }(arr[i]);
+            }
+            return result;
+        }
+        var arr = [1, 2, 3];
+        var square = function (x) {
+            return x * x;
+        };
+        var funs=makeClosures(arr,square);
+        console.log(funs[1]());
+
+        /*
+         1、返回一个函数 result
+         2、调用 result 之后，返回的结果与调用函数 fn 的结果一致
+         3、fn 的调用参数为 partialUsingArguments 的第一个参数之后的全部参数以及 result 的调用参数
+         */
+        function partialUsingArguments(fn) {
+
+            var result;
+            var arg=Array.prototype.slice.call(arguments,1);
+            result=function(){
+                return fn.apply(null,arg.concat([].slice.call(arguments)));
+            }
+            return result;
+
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
