@@ -32,14 +32,63 @@
         console.log(duplicates(arr).join());
 
         /* 函数声明提前, 函数表达式则正常执行*/
-        test(1);
-        test2(1); //不会执行  表达式在下方
+        test(1); //输出1
+        //test2(1); //出错  表达式在下方
         function test(num){
-            alert(num);
+            console.log(num);
         }
         var test2=function(num){
-            alert(num)
+            console.log(num)
         }
+
+        var parse2Num=function(num){
+            var regex=/^\d+/;  //正则表达式,截去不是数字部分
+            //console.log(regex.exec(num));
+            num=regex.exec(num)[0];
+            return parseInt(num);
+        }
+        console.log(parse2Num("3134fd,"));
+
+        /* setTimeout  setInterval*/
+        var count=function(start,end){
+            if(start<end){
+                console.log(start);
+                start++;
+                timer=setTimeout(function(){
+                    count(start,end);
+                },100)
+            }
+            return{
+                cancel:function(){
+                    clearTimeout(timer);
+                }
+            }
+        }
+        var count2=function(start,end){
+            var time;
+            console.log(start);
+            time=setInterval(function(){
+                if(start<end){
+                    start+=1;
+                    console.log(start);
+                }
+                else{
+                    clearInterval(time);
+                }
+            },100);
+            return{
+                cancel:function(){
+                    clearInterval(time);
+                }
+            };
+        }
+        //count2(1,5);
+
+        setTimeout(count2(1,5).cancel,200);//200毫秒后调用cancel方法clearInterval
+     //   var c=count2(1,5);
+        //setTimeout(count2(1,5),200);
+
+
 
     </script>
 </head>
