@@ -154,6 +154,48 @@
             }
             return new Obj();
         }
+
+        /*
+         * 将给定数字转换成二进制字符串。如果字符串长度不足 8 位，则在前面补 0 到满8位。
+         * */
+        function convertToBinary(num) {
+
+            var s=num.toString(2);
+            var arr=s.split("");
+            if(arr.length<8){
+                var len=8-arr.length;
+                while(len>0){
+                    arr.unshift(0);
+                    len--;
+                }
+            }
+            return arr.join("");
+        }
+        console.log(convertToBinary(65));
+        function convertToBinary2(num){
+            var s=num.toString(2);
+            while(s.length<8){
+                s="0"+s;
+            }
+            return s;
+        }
+        console.log(convertToBinary2(65));
+
+        /*
+        * 找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)
+         1、返回数组，格式为 key: value
+         2、结果数组不要求顺序
+        * */
+        function iterate(obj) {
+
+            var res=[];
+            for(var property in obj){
+                if(obj.hasOwnProperty(property)==true){
+                    res.push(property+": "+obj[property]);
+                }
+            }
+            return res;
+        }
     </script>
 </head>
 <body>
