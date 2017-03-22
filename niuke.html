@@ -196,6 +196,24 @@
             }
             return res;
         }
+
+        /*
+        * 给定字符串 str，检查其是否包含数字，包含返回 true，否则返回 false
+        * */
+        function containsNumber(str) {
+
+            /*
+             for(var i=0,len=str.length;i<len;i++){
+             if(str.charAt(i)>="0"&&str.charAt(i)<="9"){
+             return true;
+             }
+             }
+             return false;
+             */
+            var reg=new RegExp("\\d");
+            return reg.test(str);
+        }
+
     </script>
 </head>
 <body>
