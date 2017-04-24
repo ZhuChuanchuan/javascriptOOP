@@ -6,8 +6,36 @@
     <script>
         document.write("test");
     </script>
+    <style>
+        #wrapper{
+            height:100px;
+        }
+        #div1{
+            float:left;
+            width:200px;
+            height:inherit;
+            background-color: green;
+            display:none;
+            /* visibility: hidden; 隐藏了,但还占着坑 */
+            /* border:1px solid green;  会再inherit基础上加上border宽度 */
+        }
+        #div2{
+            float:left;
+            width:200px;
+            height:inherit;
+            background-color: red;
+            /* border:1px solid red;*/
+        }
+        #div2::after{
+            clear: both;
+        }
+    </style>
 </head>
 <body>
 
+<div id="wrapper">
+    <div id="div1"></div>
+    <div id="div2"></div>
+</div>
 </body>
 </html>
