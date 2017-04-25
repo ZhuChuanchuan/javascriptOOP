@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #test{
+            height:100px;
+            width:200px;
+            background-color:red;
+        }
+    </style>
+    <script src="jquery-1.9.1.js"></script>
+    <script>
+       function test(){
+           var div = $('#test');
+           div.slideDown(2000).delay(1000).animate({
+               width:'256px',
+               height:'256px'
+           },2000).delay(1000).animate({
+               width:'128px',
+               height:'128px'
+           },2000);
+       }
+    </script>
+</head>
+<body>
+
+    <button type="button" onclick="test()">animate</button>
+    <div id="test"></div>
+</body>
+</html>
